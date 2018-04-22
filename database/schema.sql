@@ -1,5 +1,5 @@
-CREATE DATABASE top_ten;
-USE top_ten;
+-- CREATE DATABASE top_ten;
+-- USE top_ten;
 
 CREATE TABLE movies (
   id INT AUTO_INCREMENT PRIMARY KEY,
@@ -13,7 +13,7 @@ INSERT INTO movies (title, imdb_id, img_url, ranking)
 VALUES (
   "Pulp Fiction", 
   "tt0110912",
-  "https://ia.media-imdb.com/images/M/MV5BMTkxMTA5OTAzMl5BMl5BanBnXkFtZTgwNjA5MDc3NjE@",
+  "MV5BMTkxMTA5OTAzMl5BMl5BanBnXkFtZTgwNjA5MDc3NjE@",
   1
 );
 
@@ -21,6 +21,14 @@ INSERT INTO movies (title, imdb_id, img_url, ranking)
 VALUES (
   "Office Space", 
   "tt0151804", 
-  "https://ia.media-imdb.com/images/M/MV5BOTA5MzQ3MzI1NV5BMl5BanBnXkFtZTgwNTcxNTYxMTE@._V1_SX300.jpg",
+  "MV5BOTA5MzQ3MzI1NV5BMl5BanBnXkFtZTgwNTcxNTYxMTE@._V1_SX300.jpg",
   3
+);
+
+INSERT INTO movies (title, imdb_id, img_url, ranking) 
+VALUES (
+  "Blade Runner", 
+  "tt0083658", 
+  "MV5BNzQzMzJhZTEtOWM4NS00MTdhLTg0YjgtMjM4MDRkZjUwZDBlXkEyXkFqcGdeQXVyNjU0OTQ0OTY@._V1_SX300.jpg",
+  2
 );
