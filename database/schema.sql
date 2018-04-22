@@ -12,7 +12,15 @@ CREATE TABLE movies (
 INSERT INTO movies (title, imdb_id, img_url, ranking) 
 VALUES (
   "Pulp Fiction", 
-  "tt0110912", 
+  "tt0110912",
   "https://ia.media-imdb.com/images/M/MV5BMTkxMTA5OTAzMl5BMl5BanBnXkFtZTgwNjA5MDc3NjE@",
   1
+);
+
+INSERT INTO movies (title, imdb_id, img_url, ranking) 
+VALUES (
+  "Office Space", 
+  "tt0151804", 
+  "https://ia.media-imdb.com/images/M/MV5BOTA5MzQ3MzI1NV5BMl5BanBnXkFtZTgwNTcxNTYxMTE@._V1_SX300.jpg",
+  3
 );
