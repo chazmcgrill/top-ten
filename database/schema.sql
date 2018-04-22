@@ -1,0 +1,9 @@
+CREATE DATABASE top_ten;
+USE DATABASE top_ten;
+
+CREATE TABLE movies (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  title VARCHAR(255) NOT NULL,
+  imdb_id VARCHAR(50) NOT NULL,
+  ranking INT
+)
