@@ -10,16 +10,16 @@ var connection = mysql.createConnection({
   database: process.env.DB_NAME
 });
 
-/* GET users listing. */
-router.get('/', function(req, res, next) {
-  var q = 'SELECT * FROM movies ORDER BY ranking';
-  connection.query(q, function (err, rows) {
+router.post("/", function (req, res) {
+  var movie = {
+    title: req.body.title,
+    imdb_id: req.body.imdb_id,
+    img_url: req.body.img_url,
+    ranking: 6
+  };
+  connection.query("INSERT INTO movies SET ?", movie, function (err, result) {
     if (err) throw err;
-    var result = [];
-    rows.forEach(function(row) {
-      result.push(row);
-    });
-    res.send(result);
+    res.redirect("/");
   });
 });
 

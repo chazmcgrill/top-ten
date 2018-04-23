@@ -11,11 +11,30 @@ class App extends Component {
     this.handleSearch = this.handleSearch.bind(this);
   }
 
+  async postMovie(movie) {
+    console.log(movie);
+    const m = {
+      title: movie.Title,
+      imdb_id: movie.imdbID,
+      img_url: movie.Poster,
+      ranking: 6
+    }
+    const response = await fetch('/addmovie', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(m)
+    })
+    const status = await response.status;
+    console.log(status);
+  }
+
   handleSearch(text) {
     console.log(text);
     fetch(`http://www.omdbapi.com/?t=${text}&apikey=${process.env.REACT_APP_API_KEY}`)
       .then(res => res.json())
-      .then(movie => console.log(movie))
+      .then(this.postMovie)
   }
 
   componentDidMount() {
@@ -33,7 +52,7 @@ class App extends Component {
           {this.state.movies.map(movie =>
             <div key={movie.id}>
               <img 
-                src={`https://ia.media-imdb.com/images/M/${movie.img_url}`} 
+                src={movie.img_url} 
                 alt={movie.title}
                 style={{width: '250px'}}
               />
