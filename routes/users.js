@@ -12,8 +12,7 @@ var connection = mysql.createConnection({
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
-  // res.send('respond with a resource');
-  var q = 'SELECT * FROM movies';
+  var q = 'SELECT * FROM movies ORDER BY ranking';
   connection.query(q, function (err, rows) {
     if (err) throw err;
     var result = [];
@@ -21,6 +20,17 @@ router.get('/', function(req, res, next) {
       result.push(row);
     });
     res.send(result);
+  });
+});
+
+app.post("/addmovie", function (req, res) {
+  var movie = {
+    email: req.body.email
+  };
+
+  connection.query("INSERT INTO users SET ?", movie, function (err, result) {
+    if (err) throw err;
+    res.redirect("/");
   });
 });
 
