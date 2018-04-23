@@ -9,6 +9,13 @@ class App extends Component {
       movies: []
     }
     this.handleSearch = this.handleSearch.bind(this);
+    this.postMovie = this.postMovie.bind(this);
+  }
+
+  fetchAll() {
+    fetch('/users')
+      .then(res => res.json())
+      .then(movies => this.setState({ movies }));
   }
 
   async postMovie(movie) {
@@ -27,7 +34,10 @@ class App extends Component {
       body: JSON.stringify(m)
     })
     const status = await response.status;
-    console.log(status);
+
+    if (status === 200) {
+      this.fetchAll();
+    }
   }
 
   handleSearch(text) {
@@ -38,9 +48,8 @@ class App extends Component {
   }
 
   componentDidMount() {
-    fetch('/users')
-      .then(res => res.json())
-      .then(movies => this.setState({ movies }));
+    this.fetchAll();
+    console.log(this);
   }
 
   render() {
