@@ -9,6 +9,7 @@ class App extends Component {
       movies: []
     }
     this.handleSearch = this.handleSearch.bind(this);
+    this.handleDelete = this.handleDelete.bind(this);
     this.postMovie = this.postMovie.bind(this);
   }
 
@@ -18,23 +19,20 @@ class App extends Component {
       .then(movies => this.setState({ movies }));
   }
 
-  async postMovie(movie) {
-    console.log(movie);
-    const m = {
-      title: movie.Title,
-      imdb_id: movie.imdbID,
-      img_url: movie.Poster,
-      ranking: 6
+  async postMovie(m) {
+    const movie = {
+      title: m.Title,
+      imdb_id: m.imdbID,
+      img_url: m.Poster
     }
-    const response = await fetch('/addmovie', {
+    const response = await fetch('/users', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify(m)
+      body: JSON.stringify(movie)
     })
     const status = await response.status;
-
     if (status === 200) {
       this.fetchAll();
     }
@@ -47,9 +45,14 @@ class App extends Component {
       .then(this.postMovie)
   }
 
+  handleDelete(id) {
+    fetch('/users/' + id, {
+      method: 'DELETE'
+    }) 
+  }
+
   componentDidMount() {
     this.fetchAll();
-    console.log(this);
   }
 
   render() {
@@ -57,9 +60,12 @@ class App extends Component {
       <div className="App">
         <h1>top ten</h1>
         <SearchBar handleSubmit={this.handleSearch}/>
-        <div style={{ display: 'flex', justifyContent: 'space-around'}}>
+        <div>
           {this.state.movies.map(movie =>
-            <div key={movie.id}>
+            <div 
+              key={movie.id} 
+              onClick={() => this.handleDelete(movie.id)} 
+              id={movie.id} >
               <img 
                 src={movie.img_url} 
                 alt={movie.title}

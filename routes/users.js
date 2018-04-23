@@ -23,4 +23,25 @@ router.get('/', function(req, res, next) {
   });
 });
 
+router.post("/", function (req, res) {
+  var movie = {
+    title: req.body.title,
+    imdb_id: req.body.imdb_id,
+    img_url: req.body.img_url,
+    ranking: 6
+  };
+  connection.query("INSERT INTO movies SET ?", movie, function (err, result) {
+    if (err) throw err;
+    res.redirect("/");
+  });
+});
+
+router.delete("/:id", function (req, res) {
+  connection.query('DELETE FROM movies WHERE id = ?', req.params.id, function (err, result) {
+    if (err) throw err;
+    // res.redirect("/");
+  });
+});
+
+
 module.exports = router;
