@@ -46,9 +46,12 @@ class App extends Component {
   }
 
   handleDelete(id) {
+    console.log(id);
     fetch('/users/' + id, {
-      method: 'DELETE'
-    }) 
+      method: 'delete'
+    })
+    .then(response => response.json());
+    this.fetchAll();
   }
 
   componentDidMount() {

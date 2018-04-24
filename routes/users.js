@@ -10,9 +10,8 @@ var connection = mysql.createConnection({
   database: process.env.DB_NAME
 });
 
-/* GET users listing. */
 router.get('/', function(req, res, next) {
-  var q = 'SELECT * FROM movies ORDER BY ranking';
+  var q = 'SELECT * FROM movies ORDER BY ranking LIMIT 10';
   connection.query(q, function (err, rows) {
     if (err) throw err;
     var result = [];
@@ -24,24 +23,33 @@ router.get('/', function(req, res, next) {
 });
 
 router.post("/", function (req, res) {
-  var movie = {
+  const q = "INSERT INTO movies SET ?";
+  const movie = {
     title: req.body.title,
     imdb_id: req.body.imdb_id,
     img_url: req.body.img_url,
     ranking: 6
   };
-  connection.query("INSERT INTO movies SET ?", movie, function (err, result) {
+  connection.query(q, movie, function (err, result) {
     if (err) throw err;
     res.redirect("/");
   });
 });
 
 router.delete("/:id", function (req, res) {
-  connection.query('DELETE FROM movies WHERE id = ?', req.params.id, function (err, result) {
+  const q = 'DELETE FROM movies WHERE id = ?';
+  connection.query(q, req.params.id, function (err, result) {
     if (err) throw err;
-    // res.redirect("/");
+    res.send(JSON.stringify(result));
   });
 });
 
+router.put("/:id", function (req, res) {
+  const q = `UPDATE movies SET ranking=${1} WHERE id = ?`;
+  connection.query(q, req.params.id, function(err, result) {
+    if (err) throw err;
+    res.send(JSON.stringify(result));
+  });
+});
 
 module.exports = router;
