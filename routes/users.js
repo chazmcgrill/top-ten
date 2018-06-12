@@ -45,6 +45,7 @@ router.delete("/:id", function (req, res) {
 });
 
 router.put("/:id", function (req, res) {
+  // const q = `UPDATE movies SET ranking=${req.body.new_rank} WHERE id = ?`;
   const q = `UPDATE movies SET ranking=${1} WHERE id = ?`;
   connection.query(q, req.params.id, function(err, result) {
     if (err) throw err;
